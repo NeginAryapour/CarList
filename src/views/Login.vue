@@ -28,7 +28,7 @@
               v-model="input.password"
               placeholder="Password"
             />
-            <button class="show_hide_btn" type="password" v-on:click="switchVisibility">show / hide</button>
+            <button class="show_hide_btn" type="password" v-on:click="switchVisibility"><img class="icon" src="../assets/eye_gray.png"></button>
           </div>
 
           <input class="forgot-password-btn" type="button" value="forgot password" />
@@ -56,8 +56,10 @@ export default {
         username: "",
         password: "",
         // passwordFieldType: "password",
-        passwordFieldType :"password"
+        
       },
+      passwordFieldType :"password",
+      eye_url: "../assets/eye_gray.png"
     };
   },
 
@@ -80,6 +82,9 @@ export default {
     switchVisibility() {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
+      this.eye_url =
+        this.passwordFieldType === "password" ? "../assets/eye_gray.png" : "../assets/invible.png";
+
     },
   },
 };
@@ -104,6 +109,10 @@ export default {
   border-radius: 15px;
 }
 
+.icon{
+  background: none;
+}
+
 #password_container {
   background: none;
   
@@ -117,6 +126,14 @@ export default {
   zoom: 1;
   vertical-align: top;
   font-size: 12px;
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.show_hide_btn :active{
+  outline: none;
+
 }
 
 .carlist {
@@ -203,8 +220,9 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px rgb(196, 196, 196) inset !important;
+  -webkit-box-shadow: 0 0 0 30px rgb(196, 196, 196, 0.5) inset !important;
   -webkit-animation-fill-mode: both;
+  /* -webkit-border-image: none; */
 
   outline: none;
 }
@@ -245,12 +263,16 @@ input:-webkit-autofill:active {
 .login-btn:hover {
   background: white;
   color: #00acc2;
+  font-weight: bolder;
   box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.3);
-  border: none;
+  /* border-color: #00acc2; */
+  /* border-width: medium; */
 }
 
 .login-btn:active {
   background: #00acc2;
   color: white;
+  font-weight: bolder;
+
 }
 </style>
