@@ -56,7 +56,7 @@ export default {
         username: "",
         password: "",
         // passwordFieldType: "password",
-        // passwordFieldType :"password"
+        passwordFieldType :"password"
       },
     };
   },
@@ -77,10 +77,10 @@ export default {
         console.log("A username and password must be present");
       }
     },
-    // switchVisibility() {
-    //   this.passwordFieldType =
-    //     this.passwordFieldType === "password" ? "text" : "password";
-    // },
+    switchVisibility() {
+      this.passwordFieldType =
+        this.passwordFieldType === "password" ? "text" : "password";
+    },
   },
 };
 </script>
