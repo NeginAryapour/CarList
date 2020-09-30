@@ -74,8 +74,9 @@ export default {
         // Error
         console.error('error')
       } else {
-        const token = response.data.jwt;
+        const {first_name, last_name, token} = response.data;
         window.localStorage.setItem('token', token);
+        window.localStorage.setItem('name', first_name + " " + last_name);
         this.$router.push('drivers');
       }
     },

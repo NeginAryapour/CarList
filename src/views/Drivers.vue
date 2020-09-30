@@ -2,13 +2,33 @@
   <div>
     <!-- <h1>Vertical Menu</h1> -->
 
-    <div class="vertical-menu">
+    <!-- <div class="vertical-menu">
       <div>hi</div> 
       <a href="#dashboard" >Dashboard</a>
       <a href="#drivers" class="active">Drivers</a>
       <a href="#cars">Cars</a>
       <a href="#setting">setting </a>
       <a href="#logout">Log out</a>
+    </div> -->
+  <div  class="card">
+    <table>
+      <tr class="table_heading">
+        <th><input type="checkbox" name="name1" />&nbsp;</th>
+        <th>id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Car Name</th>
+        <th>Email</th>
+      </tr>
+      <tr class="table_data">
+        <td><input type="checkbox" name="name2" />&nbsp;</td>
+        <td  >1</td>
+        <td>negin</td>
+        <td>ar</td>
+        <td>sf5</td>
+        <td>negin@gmail.com</td>
+      </tr>
+    </table>
     </div>
 
     
@@ -20,6 +40,29 @@ export default {};
 </script>
 
 <style>
+
+input[type="checkbox"] {
+  /* box-shadow: 0 0 0 3px orange; */
+  margin-left: 50px;
+}
+
+
+th{
+  /* background-color: olivedrab; */
+  background-color: rgba(211, 211, 212, 1);
+  height: 50px;
+}
+
+td{
+  background:white;
+  height: 67px;
+  width: 156px;
+}
+
+.card{
+  width: 80%;
+  /* display: center; */
+}
 .vertical-menu {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 250px; /* Set the width of the sidebar */
