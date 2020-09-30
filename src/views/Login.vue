@@ -2,8 +2,10 @@
   <div class="home">
     <div class="login-logo">
       <div class="carlist">CarList</div>
+
       <!-- <img src="../assets/taxi_blue.png" alt=""> -->
       <div class="adminpanel">admin panel</div>
+      <img class="car_logo" src="../assets/taxi_blue.png" alt />
     </div>
     <div class="container">
       <div class="white-box">
@@ -18,7 +20,7 @@
             placeholder="Username"
             autocomplete="off"
           />
-          <br />
+          <br  />
           <!-- <img src="../assets/eye_gray.png" alt=""> -->
           <div id="password_container">
             <input
@@ -28,12 +30,14 @@
               v-model="input.password"
               placeholder="Password"
             />
-            <button class="show_hide_btn" type="password" v-on:click="switchVisibility"><img class="icon" src="../assets/eye_gray.png"></button>
+            <button class="show_hide_btn" type="password" v-on:click="switchVisibility">
+              <img class="icon" src="../assets/eye_gray.png" />
+            </button>
           </div>
 
           <input class="forgot-password-btn" type="button" value="forgot password" />
         </div>
-        <input class="login-btn" type="button" value="LOGIN" />
+        <input class="login-btn" type="button" value="LOGIN" v-on:click="login()" />
       </div>
     </div>
   </div>
@@ -41,50 +45,47 @@
 
 <script>
 // @ is an alias to /src
+const axios = require('axios');
 
 export default {
-
   el: "#password_container",
   name: "Login",
-  components: {
-    
-  },
-  
+  components: {},
+
   data() {
     return {
       input: {
         username: "",
         password: "",
         // passwordFieldType: "password",
-        
       },
-      passwordFieldType :"password",
-      eye_url: "../assets/eye_gray.png"
+      passwordFieldType: "password",
+      eye_url: "../assets/eye_gray.png",
     };
   },
 
   methods: {
-    login() {
-      if (this.input.username != "" && this.input.password != "") {
-        if (
-          this.input.username == this.$parent.mockAccount.username &&
-          this.input.password == this.$parent.mockAccount.password
-        ) {
-          this.$emit("authenticated", true);
-          this.$router.replace({ name: "secure" });
-        } else {
-          console.log("The username and / or password is incorrect");
-        }
+    async login() {
+      const username = this.input.username;
+      const password = this.input.password;
+      console.log(username, password);
+      const response = await axios.post('http://localhost:1337/auth/local', {identifier: username, password});
+      if (response.status !== 200) {
+        // Error
+        console.error('error')
       } else {
-        console.log("A username and password must be present");
+        const token = response.data.jwt;
+        window.localStorage.setItem('token', token);
+        this.$router.push('drivers');
       }
     },
     switchVisibility() {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
       this.eye_url =
-        this.passwordFieldType === "password" ? "../assets/eye_gray.png" : "../assets/invible.png";
-
+        this.passwordFieldType === "password"
+          ? "../assets/eye_gray.png"
+          : "../assets/invible.png";
     },
   },
 };
@@ -108,14 +109,28 @@ export default {
 
   border-radius: 15px;
 }
+.car_logo {
+  margin-left: 150px;
+  margin-top: -150px;
+  width: 32px;
+  height: 32px;
+}
 
-.icon{
+.icon {
   background: none;
 }
 
 #password_container {
   background: none;
-  
+  display: flex;
+}
+#password_container button {
+  margin-left: -3rem;
+  margin-top: 1rem;
+}
+
+#password_container button:focus {
+  outline: 0;
 }
 
 .show_hide_btn {
@@ -131,9 +146,8 @@ export default {
   border: none;
 }
 
-.show_hide_btn :active{
+.show_hide_btn :active {
   outline: none;
-
 }
 
 .carlist {
@@ -160,9 +174,9 @@ export default {
 }
 
 hr {
-  height: 2px;
-
-  border: none;
+  height: 2.5px !important;
+  background-color: rgb(196, 196, 196, 0.1) !important;
+  border: 0 none !important;
 }
 
 #login {
@@ -236,12 +250,13 @@ input:-webkit-autofill:active {
   border: none;
   background: none;
   margin-top: 5px;
-  color: #00acc2;
+  color: #00acc2 !important;
   outline: none;
 }
 
 .forgot-password-btn:active {
   /* border-color: white; */
+  color: #d3d3d4 !important;
 }
 
 .login-btn {
@@ -252,7 +267,7 @@ input:-webkit-autofill:active {
   display: block;
   font-size: 16px;
   background-color: #00acc2;
-  color: white;
+  color: white !important;
   border: none;
   outline: none;
   box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.3);
@@ -262,7 +277,7 @@ input:-webkit-autofill:active {
 
 .login-btn:hover {
   background: white;
-  color: #00acc2;
+  color: #00acc2 !important;
   font-weight: bolder;
   box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.3);
   /* border-color: #00acc2; */
@@ -271,8 +286,7 @@ input:-webkit-autofill:active {
 
 .login-btn:active {
   background: #00acc2;
-  color: white;
+  color: white !important;
   font-weight: bolder;
-
 }
 </style>
